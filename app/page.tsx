@@ -5,6 +5,13 @@ import PhysicsScene from "@/components/PhysicsScene";
 import { SITE_TITLE, SITE_DESCRIPTION, PROJECT_TAG } from "@/config";
 import { useState, useEffect } from "react";
 
+// Google Analytics event tracking
+const trackEvent = (eventName: string, parameters?: Record<string, any>) => {
+  if (typeof window !== "undefined" && window.gtag) {
+    window.gtag("event", eventName, parameters);
+  }
+};
+
 export default function Home() {
   const [wireframe, setWireframe] = useState(false);
   const [showButton, setShowButton] = useState(false);
@@ -16,6 +23,16 @@ export default function Home() {
 
     return () => clearTimeout(timer);
   }, []);
+
+  const handleWireframeToggle = () => {
+    const newWireframeState = !wireframe;
+    setWireframe(newWireframeState);
+
+    trackEvent("wireframe_toggle", {
+      wireframe_mode: newWireframeState,
+      project_tag: PROJECT_TAG,
+    });
+  };
 
   return (
     <>
@@ -37,7 +54,7 @@ export default function Home() {
         {/* Wireframe toggle button */}
         {showButton && (
           <button
-            onClick={() => setWireframe(!wireframe)}
+            onClick={handleWireframeToggle}
             className="wireframe-toggle"
             style={{
               position: "absolute",

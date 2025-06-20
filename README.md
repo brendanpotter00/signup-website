@@ -10,6 +10,7 @@ A minimal, dark-themed Next.js sign-up template with Supabase integration, ready
 - 🔧 Configurable site content via `config.ts`
 - 📱 Responsive design
 - ⚡ Fast and lightweight
+- 📊 Google Analytics integration
 
 ## Quick Start
 
@@ -35,6 +36,29 @@ Edit `.env.local` with your Supabase project details:
 NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key_here
 ```
+
+### Google Analytics Setup
+
+To enable Google Analytics tracking:
+
+1. **Create a Google Analytics 4 property**:
+
+   - Go to [analytics.google.com](https://analytics.google.com)
+   - Create a new property for your website
+   - Get your Measurement ID (format: G-XXXXXXXXXX)
+
+2. **Add to environment variables**:
+   Add your Google Analytics Measurement ID to `.env.local`:
+
+   ```env
+   NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key_here
+   NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
+   ```
+
+3. **Deploy with environment variable**:
+   - For Vercel: Add `NEXT_PUBLIC_GA_MEASUREMENT_ID` to your project's environment variables
+   - For other platforms: Set the environment variable according to your hosting provider
 
 **Note**: The development server will show an error page until you configure the environment variables. This is expected behavior.
 

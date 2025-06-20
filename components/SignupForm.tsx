@@ -7,6 +7,13 @@ interface SignupFormProps {
   tag: string;
 }
 
+// Google Analytics event tracking
+const trackEvent = (eventName: string, parameters?: Record<string, any>) => {
+  if (typeof window !== "undefined" && window.gtag) {
+    window.gtag("event", eventName, parameters);
+  }
+};
+
 export default function SignupForm({ tag }: SignupFormProps) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<
@@ -25,17 +32,30 @@ export default function SignupForm({ tag }: SignupFormProps) {
     if (!validateEmail(email)) {
       setStatus("error");
       setMessage("Invalid email");
+      trackEvent("signup_error", {
+        error_type: "invalid_email",
+        project_tag: tag,
+      });
       return;
     }
 
     if (!supabase) {
       setStatus("error");
       setMessage("Database connection not configured");
+      trackEvent("signup_error", {
+        error_type: "database_connection",
+        project_tag: tag,
+      });
       return;
     }
 
     setStatus("loading");
     setMessage("");
+
+    // Track form submission
+    trackEvent("signup_attempt", {
+      project_tag: tag,
+    });
 
     try {
       const { error } = await supabase.from("signups").insert({ email, tag });
@@ -45,18 +65,33 @@ export default function SignupForm({ tag }: SignupFormProps) {
           // Unique constraint violation
           setStatus("duplicate");
           setMessage("You've already signed up!");
+          trackEvent("signup_error", {
+            error_type: "duplicate_email",
+            project_tag: tag,
+          });
         } else {
           setStatus("error");
           setMessage("Something went wrong. Please try again.");
+          trackEvent("signup_error", {
+            error_type: "database_error",
+            project_tag: tag,
+          });
         }
       } else {
         setStatus("success");
         setMessage("Thanks! You're on the list.");
         setEmail("");
+        trackEvent("signup_success", {
+          project_tag: tag,
+        });
       }
     } catch (error) {
       setStatus("error");
       setMessage("Something went wrong. Please try again.");
+      trackEvent("signup_error", {
+        error_type: "network_error",
+        project_tag: tag,
+      });
     }
   };
 
