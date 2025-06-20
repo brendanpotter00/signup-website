@@ -68,7 +68,7 @@ export default function SignupForm({ tag }: SignupFormProps) {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter your email address"
+            placeholder="email"
             className="input-field"
             disabled={status === "loading"}
             required
@@ -80,7 +80,7 @@ export default function SignupForm({ tag }: SignupFormProps) {
           disabled={status === "loading"}
           className="btn-primary"
         >
-          {status === "loading" ? "Joining..." : "Join the Waitlist"}
+          {status === "loading" ? "joining..." : "show interest"}
         </button>
       </form>
 

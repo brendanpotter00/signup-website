@@ -108,7 +108,7 @@ body {
   padding: 1rem 1.25rem;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 0.75rem;
+  border-radius: 50px;
   color: #ffffff;
   font-size: 1rem;
   font-weight: 400;
@@ -144,7 +144,7 @@ body {
   font-weight: 600;
   padding: 0.875rem 1.5rem;
   border: none;
-  border-radius: 0.75rem;
+  border-radius: 50px;
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -253,6 +253,51 @@ body {
   z-index: -1;
 }
 
+/* Three.js Physics Scene */
+.physics-scene {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.physics-scene canvas {
+  pointer-events: auto;
+}
+
+.physics-instructions {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: #ffffff;
+  padding: 1rem 2rem;
+  border-radius: 0.75rem;
+  font-size: 0.9rem;
+  pointer-events: none;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Content overlay */
+.content-overlay {
+  position: relative;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 2rem;
+  max-width: 28rem;
+  width: 100%;
+}
+
 /* Mobile-first responsive design */
 @media (max-width: 768px) {
   .text-4xl {
@@ -298,6 +343,17 @@ body {
   main {
     padding-top: 2rem;
     padding-bottom: 2rem;
+  }
+
+  .content-overlay {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  .physics-instructions {
+    bottom: 1rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.8rem;
   }
 }
 
@@ -351,6 +407,17 @@ body {
     width: 300px;
     height: 300px;
   }
+
+  .content-overlay {
+    margin: 0.5rem;
+    padding: 1rem;
+  }
+
+  .physics-instructions {
+    bottom: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+  }
 }
 
 /* Landscape orientation adjustments */
@@ -376,6 +443,10 @@ body {
   main {
     padding-top: 1rem;
     padding-bottom: 1rem;
+  }
+
+  .physics-instructions {
+    bottom: 0.5rem;
   }
 }
 
