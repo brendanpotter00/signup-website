@@ -1,0 +1,413 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Söhne", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #000000;
+  color: #ffffff;
+  line-height: 1.6;
+  overflow-x: hidden;
+  /* Prevent zoom on input focus on iOS */
+  font-size: 16px;
+}
+
+/* Layout */
+.min-h-screen {
+  min-height: 100vh;
+  min-height: 100dvh; /* Dynamic viewport height for mobile */
+}
+
+.flex {
+  display: flex;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* Spacing */
+.space-y-8 > * + * {
+  margin-top: 2rem;
+}
+
+.space-y-4 > * + * {
+  margin-top: 1rem;
+}
+
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Typography - OpenAI style */
+.text-4xl {
+  font-size: 3.5rem;
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  font-weight: 400;
+  color: #a0a0a0;
+}
+
+.font-bold {
+  font-weight: 600;
+}
+
+/* Colors */
+.text-text {
+  color: #ffffff;
+}
+
+.text-text-muted {
+  color: #a0a0a0;
+}
+
+/* Container */
+.w-full {
+  width: 100%;
+}
+
+.max-w-md {
+  max-width: 28rem;
+}
+
+/* Form styles - OpenAI style */
+.input-field {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.75rem;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 400;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(10px);
+  /* Prevent zoom on iOS */
+  font-size: 16px;
+  /* Better touch target */
+  min-height: 3.5rem;
+}
+
+.input-field::placeholder {
+  color: #808080;
+  font-weight: 400;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+}
+
+.input-field:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Button styles - OpenAI style */
+.btn-primary {
+  background: #ffffff;
+  color: #000000;
+  font-weight: 600;
+  padding: 0.875rem 1.5rem;
+  border: none;
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  /* Better touch target for mobile */
+  min-height: 3.5rem;
+  /* Prevent text selection */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  /* Prevent zoom on tap */
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 0, 0, 0.1),
+    transparent
+  );
+  transition: left 0.5s;
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+.btn-primary:hover {
+  background: #f0f0f0;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+}
+
+.btn-primary:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-primary:disabled::before {
+  display: none;
+}
+
+/* Message styles - OpenAI style */
+.message {
+  margin-top: 1rem;
+  padding: 1rem 1.25rem;
+  border-radius: 0.75rem;
+  text-align: center;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  /* Better mobile spacing */
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.message.success {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.message.duplicate {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.message.error {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* OpenAI-style background effects */
+.background-glow {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.05) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Mobile-first responsive design */
+@media (max-width: 768px) {
+  .text-4xl {
+    font-size: 2.5rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .text-xl {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  .px-4 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .space-y-8 > * + * {
+    margin-top: 2.5rem;
+  }
+
+  .space-y-4 > * + * {
+    margin-top: 1.5rem;
+  }
+
+  .background-glow {
+    width: 400px;
+    height: 400px;
+  }
+
+  /* Better mobile form spacing */
+  .input-field {
+    margin-bottom: 1rem;
+  }
+
+  .btn-primary {
+    margin-top: 0.5rem;
+  }
+
+  /* Ensure content doesn't get cut off */
+  main {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .text-4xl {
+    font-size: 2rem;
+    line-height: 1.3;
+  }
+
+  .text-xl {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .max-w-md {
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+
+  .space-y-8 > * + * {
+    margin-top: 2rem;
+  }
+
+  .space-y-4 > * + * {
+    margin-top: 1.25rem;
+  }
+
+  /* Larger touch targets for small screens */
+  .input-field {
+    min-height: 3.75rem;
+    font-size: 16px; /* Prevent zoom on iOS */
+  }
+
+  .btn-primary {
+    min-height: 3.75rem;
+    font-size: 16px;
+  }
+
+  .message {
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+    padding: 1.25rem 1rem;
+  }
+
+  .background-glow {
+    width: 300px;
+    height: 300px;
+  }
+}
+
+/* Landscape orientation adjustments */
+@media (max-height: 600px) and (orientation: landscape) {
+  .text-4xl {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .text-xl {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .space-y-8 > * + * {
+    margin-top: 1.5rem;
+  }
+
+  .space-y-4 > * + * {
+    margin-top: 1rem;
+  }
+
+  main {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .input-field,
+  .btn-primary {
+    border-width: 0.5px;
+  }
+}
+
+/* Dark mode support for system preferences */
+@media (prefers-color-scheme: dark) {
+  /* Already dark theme, but ensure consistency */
+  body {
+    background: #000000;
+    color: #ffffff;
+  }
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary::before {
+    transition: none;
+  }
+
+  .btn-primary:hover {
+    transform: none;
+  }
+
+  .input-field,
+  .btn-primary {
+    transition: none;
+  }
+}
