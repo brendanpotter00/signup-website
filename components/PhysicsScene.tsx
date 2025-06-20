@@ -7,14 +7,15 @@ import { useState, useRef, useEffect } from "react";
 import * as THREE from "three";
 
 // Rainbow gradient material
-function RainbowMaterial() {
+function RainbowMaterial({ wireframe = false }: { wireframe?: boolean }) {
   const materialRef = useRef<THREE.ShaderMaterial>(null);
 
   useEffect(() => {
     if (materialRef.current) {
       materialRef.current.uniforms.time.value = 0;
+      materialRef.current.wireframe = wireframe;
     }
-  }, []);
+  }, [wireframe]);
 
   useThree(({ clock }) => {
     if (materialRef.current) {
@@ -72,6 +73,7 @@ function RainbowMaterial() {
       uniforms={{
         time: { value: 0 },
       }}
+      wireframe={wireframe}
     />
   );
 }
@@ -93,7 +95,13 @@ function Ground() {
 }
 
 // Sphere component
-function Sphere({ position }: { position: [number, number, number] }) {
+function Sphere({
+  position,
+  wireframe,
+}: {
+  position: [number, number, number];
+  wireframe: boolean;
+}) {
   const [ref] = useSphere(() => ({
     mass: 1,
     position,
@@ -103,13 +111,19 @@ function Sphere({ position }: { position: [number, number, number] }) {
   return (
     <mesh ref={ref as any} castShadow>
       <sphereGeometry args={[0.5, 32, 32]} />
-      <RainbowMaterial />
+      <RainbowMaterial wireframe={wireframe} />
     </mesh>
   );
 }
 
 // Cube component
-function Cube({ position }: { position: [number, number, number] }) {
+function Cube({
+  position,
+  wireframe,
+}: {
+  position: [number, number, number];
+  wireframe: boolean;
+}) {
   const [ref] = useBox(() => ({
     mass: 1,
     position,
@@ -119,13 +133,13 @@ function Cube({ position }: { position: [number, number, number] }) {
   return (
     <mesh ref={ref as any} castShadow>
       <boxGeometry args={[1, 1, 1]} />
-      <RainbowMaterial />
+      <RainbowMaterial wireframe={wireframe} />
     </mesh>
   );
 }
 
 // Scene component with camera access
-function SceneContent() {
+function SceneContent({ wireframe }: { wireframe: boolean }) {
   const { camera } = useThree();
   const [objects, setObjects] = useState<
     Array<{
@@ -206,9 +220,13 @@ function SceneContent() {
 
         {objects.map((obj) =>
           obj.type === "sphere" ? (
-            <Sphere key={obj.id} position={obj.position} />
+            <Sphere
+              key={obj.id}
+              position={obj.position}
+              wireframe={wireframe}
+            />
           ) : (
-            <Cube key={obj.id} position={obj.position} />
+            <Cube key={obj.id} position={obj.position} wireframe={wireframe} />
           )
         )}
       </Physics>
@@ -226,7 +244,40 @@ function SceneContent() {
 }
 
 // Main scene component
-export default function PhysicsScene() {
+export default function PhysicsScene({
+  wireframe = false,
+}: {
+  wireframe?: boolean;
+}) {
+  const [objects, setObjects] = useState<
+    Array<{
+      id: number;
+      type: "sphere" | "cube";
+      position: [number, number, number];
+    }>
+  >([]);
+
+  // Spawn initial objects when component mounts
+  useEffect(() => {
+    const initialObjects = [];
+
+    for (let i = 0; i < 10; i++) {
+      const randomX = (Math.random() - 0.5) * 10; // Random X position between -5 and 5
+      const randomY = Math.random() * 10 + 5; // Random Y position between 5 and 15
+      const randomZ = (Math.random() - 0.5) * 10; // Random Z position between -5 and 5
+
+      const newObject = {
+        id: Date.now() + i,
+        type: Math.random() > 0.5 ? "sphere" : ("cube" as "sphere" | "cube"),
+        position: [randomX, randomY, randomZ] as [number, number, number],
+      };
+
+      initialObjects.push(newObject);
+    }
+
+    setObjects(initialObjects);
+  }, []);
+
   return (
     <div className="physics-scene">
       <Canvas
@@ -234,7 +285,7 @@ export default function PhysicsScene() {
         camera={{ position: [0, 5, 10], fov: 50 }}
         style={{ cursor: "crosshair" }}
       >
-        <SceneContent />
+        <SceneContent wireframe={wireframe} />
       </Canvas>
     </div>
   );
