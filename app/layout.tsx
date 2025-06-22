@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { SITE_TITLE, SITE_DESCRIPTION } from "@/config";
+import { DEFAULT_SITE_TITLE, DEFAULT_SITE_DESCRIPTION } from "@/config";
 import Analytics from "@/components/GoogleAnalytics";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: SITE_TITLE,
-  description: SITE_DESCRIPTION,
+  title: DEFAULT_SITE_TITLE,
+  description: DEFAULT_SITE_DESCRIPTION,
   icons: {
     icon: "/icon.svg",
   },

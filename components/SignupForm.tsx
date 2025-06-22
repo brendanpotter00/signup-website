@@ -5,6 +5,7 @@ import { supabase } from "@/lib/supabase";
 
 interface SignupFormProps {
   tag: string;
+  description?: string;
 }
 
 // Google Analytics event tracking
@@ -14,7 +15,7 @@ const trackEvent = (eventName: string, parameters?: Record<string, any>) => {
   }
 };
 
-export default function SignupForm({ tag }: SignupFormProps) {
+export default function SignupForm({ tag, description }: SignupFormProps) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<
     "idle" | "loading" | "success" | "error" | "duplicate"
