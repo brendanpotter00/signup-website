@@ -59,25 +59,33 @@ export default function SignupForm({ tag, description }: SignupFormProps) {
     });
 
     try {
+      // First check if this email+tag combination already exists
+      const { data: existingSignup } = await supabase
+        .from("signups")
+        .select("email")
+        .eq("email", email)
+        .eq("tag", tag)
+        .single();
+
+      if (existingSignup) {
+        setStatus("duplicate");
+        setMessage("You've already signed up for this project!");
+        trackEvent("signup_error", {
+          error_type: "duplicate_email_tag",
+          project_tag: tag,
+        });
+        return;
+      }
+
       const { error } = await supabase.from("signups").insert({ email, tag });
 
       if (error) {
-        if (error.code === "23505") {
-          // Unique constraint violation
-          setStatus("duplicate");
-          setMessage("You've already signed up!");
-          trackEvent("signup_error", {
-            error_type: "duplicate_email",
-            project_tag: tag,
-          });
-        } else {
-          setStatus("error");
-          setMessage("Something went wrong. Please try again.");
-          trackEvent("signup_error", {
-            error_type: "database_error",
-            project_tag: tag,
-          });
-        }
+        setStatus("error");
+        setMessage("Something went wrong. Please try again.");
+        trackEvent("signup_error", {
+          error_type: "database_error",
+          project_tag: tag,
+        });
       } else {
         setStatus("success");
         setMessage("Thanks! You're on the list.");
