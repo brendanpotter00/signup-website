@@ -124,7 +124,7 @@ export default function SignupForm({ tag, description }: SignupFormProps) {
           disabled={status === "loading"}
           className="btn-primary"
         >
-          {status === "loading" ? "joining..." : "show interest"}
+          {status === "loading" ? "joining..." : "only be notified of launch"}
         </button>
       </form>
 

@@ -4,23 +4,23 @@ export interface ProjectMeta {
 }
 
 export const PROJECT_META: Record<string, ProjectMeta> = {
-  rankr: {
-    title: "Launching rankr",
+  truRankr: {
+    title: "Launching TruRankr.ai",
     description:
       "Humans are bad at ranking things. We are fixing that and making it shareable.",
   },
-  jobBoardAI: {
-    title: "Launching job board ai",
+  jobPulse: {
+    title: "Launching JobPulse.ai",
     description:
-      "save time and get more job interviews by quickly applying to top matches",
+      "Stop wasting time on mass applications or endless filtering. JobPulseAI learns your experience, delivers only the roles you qualify for, and notifies you so you can apply within an hour of posting.",
   },
-  topPhotosAI: {
-    title: "Launching top photos ai",
+  cullarity: {
+    title: "Launching Cullarity.ai",
     description:
-      "save time and energy and curate your top photos in half the time",
+      "Stop scrolling through endless folders. Cullarity’s AI groups similar shots and surfaces your top picks, while side-by-side comparisons help the app learn your taste.",
   },
 };
 
-export const DEFAULT_PROJECT = "rankr";
+export const DEFAULT_PROJECT = "truRankr";
 
 export type ProjectSlug = keyof typeof PROJECT_META;
