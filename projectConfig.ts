@@ -19,6 +19,11 @@ export const PROJECT_META: Record<string, ProjectMeta> = {
     description:
       "Stop scrolling through endless folders. Cullarity’s AI groups similar shots and surfaces your top picks, while side-by-side comparisons help the app learn your taste.",
   },
+  clouds: {
+    title: "Launching Clouds",
+    description:
+      "Every morning, get a concise weather briefing—know exactly when the clouds will clear or rain will start so you can plan your day without opening a weather app.",
+  },
 };
 
 export const DEFAULT_PROJECT = "truRankr";
