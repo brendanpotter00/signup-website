@@ -28,14 +28,6 @@ supabase link        # Link to Supabase project
 - Project metadata defined in `projectConfig.ts`
 - Site-wide defaults in `config.ts`
 
-### Key Files
-- `projectConfig.ts` - Defines available projects and their metadata
-- `config.ts` - Global site configuration and Google Analytics setup
-- `app/projects/[slug]/page.tsx` - Dynamic project page routing
-- `app/projects/[slug]/ProjectPageClient.tsx` - Client-side project page component
-- `components/SignupForm.tsx` - Reusable signup form with analytics tracking
-- `lib/supabase.ts` - Supabase client configuration
-
 ### Database Schema
 Single `signups` table with:
 - `email` (TEXT PRIMARY KEY)
